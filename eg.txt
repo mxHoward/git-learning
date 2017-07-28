@@ -1,2 +1,6 @@
 this is an example for git learning.
+<<<<<<< HEAD
 2
+=======
+1
+>>>>>>> dev
