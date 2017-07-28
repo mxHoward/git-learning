@@ -30,3 +30,12 @@
 	//2ab1237f... is a version#
 3. $ git log `//show the records of modifying files`
 4. $ git reflog `//show the records of your commands`
+
+### Cancle Modificatin ###
+1. Use $ git checkout --file to cancle the modification
+   that is not added to the stage.
+2. If you add the wrong file to the stage, use $ git reset HEAD file
+   to cancle the adding, then use $ git checkout --file.
+3. If you commit the modification after adding to stage,
+   use $git reset --hard HEAD^ to return the last version
+
