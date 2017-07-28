@@ -51,3 +51,12 @@
 5. $ git checkout master `//switch to master after complete dev`
 6. $ git merge dev `//merge the dev branch`
 7. $ git branch -d dev `//delete dev branch`
+8. $ git branch -D dev `//delete dev even if it is not merged`
+
+### Stash ###
+1. $ git stash `//save current working status`
+2. $ git stash list `//show the stash list`
+3. $ git stash apply `//apply the stash`
+4. $ git stash drop `//drop the stash`
+5. $ git stash pop `//apply and drop the stash`
+6. $ git stash pop stash@{0} `//apply and drop a specific stash`
