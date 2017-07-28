@@ -39,3 +39,15 @@
 3. If you commit the modification after adding to stage,
    use $git reset --hard HEAD^ to return the last version
 
+### Delete File ###
+1. $ git rm file `//remove file`
+2. $ git commit -m "description" `//commit`
+
+### Branch ###
+1. $ git checkout -b dev `//'-b' means create a new branch and switch to it`
+2. $ git branch dev `//create a new branch dev`
+3. $ git checkout dev `//switch to dev`
+4. $ git branch `//show all the branches, with a '*' at current branch
+5. $ git checkout master `//switch to master after complete dev`
+6. $ git merge dev `//merge the dev branch`
+7. $ git branch -d dev `//delete dev branch`
