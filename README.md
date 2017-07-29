@@ -22,10 +22,10 @@
 
 ### Reset&Logging ###
 1. $ git reset --hard HEAD^ `//return to the last version`
-	`// HEAD is a pointer pointing to the current version of file`
-	`// '^' means last version, '^^' means two version ago `
-	`// also, '^' can be represented by HEAD~(1)`
-	`// "^^" can be represented by HEAD~(2)`
+	// HEAD is a pointer pointing to the current version of file
+	// '^' means last version, '^^' means two version ago
+	// also, '^' can be represented by HEAD~(1)
+	// "^^" can be represented by HEAD~(2)
 	
 2. $ git reset --hard 2ab1237f... `//return to the version corresponding to this version#`
 	//2ab1237f... is a version#
