@@ -1,4 +1,5 @@
 <link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></link>
+
 # LearnGit #
 
 -------------------------------------------------
@@ -60,3 +61,13 @@
 4. $ git stash drop `//drop the stash`
 5. $ git stash pop `//apply and drop the stash`
 6. $ git stash pop stash@{0} `//apply and drop a specific stash`
+
+### Tag ###
+1. $ git tag <name> `//create a new tag`
+2. $ git tag `//show all the tags`
+3. $ git tag <name> <version#> `//label the tag to specific version#`
+4. $ git show <tagname> `//show the details of the tag`
+5. $ git tag -d <name> `//delete a tag`
+6. $ git push origin <tagname> `//push to remote server`
+7. $ git push origin --tags `//push all tags to remote server`
+8. & git push origin :refs/tags/<name> `//delete a tag from the remote server`
