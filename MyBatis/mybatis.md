@@ -246,7 +246,7 @@ public class User
 </resultMap>
 ```
 * ResultMap概念视图（子标签）
-	+ consturctor 类在实例化时,用来注入结果到构造方法中
+	+ consturctor - 类在实例化时,用来注入结果到构造方法中
 		+ idArg - ID 参数;标记结果作为 ID 可以帮助提高整体效能
 		+ arg - 注入到构造方法的一个普通结果
 	+ id – 一个 ID 结果;标记结果作为 ID 可以帮助提高整体效能
@@ -260,7 +260,31 @@ public class User
 			+ 嵌入结果映射 – 这种情形结果也映射它本身,因此可以包含很多相 同的元素,或者它可以参照一个外部的结果映射。
 
 * ResultMap Attributes
-* id&result
+	+ id - 当前命名空间中的一个唯一标识，用于标识一个result map.
+	+ type - 类的全限定名, 或者一个类型别名。
+	+ autoMapping - 如果设置这个属性，MyBatis将会为这个ResultMap开启或者关闭自动映射。这个属性会覆盖全局的属性autoMappingBehavior。默认值为：unset。
+
+* id&result - ResultMap中最基本的内容
+
+```xml
+<id property="id" column="post_id"/>
+<result property="subject" column="post_subject"/>
+```
+Attributes:
+	+ property - 映射到列结果的字段或属性。
+	+ column - 从数据库中得到的列名,或者是列名的重命名标签。
+	+ javaType - 一个 Java 类的完全限定名,或一个类型别名。
+	+ jdbcType - 在这个表格之后的所支持的 JDBC 类型列表中的类型。
+	+ typeHandler - 我们在前面讨论过默认的类型处理器。使用这个属性,你可以覆盖默 认的类型处理器。这个属性值是类的完全限定名或者是一个类型处理 器的实现,或者是类型别名。
+
+|支持的JDBC类型                                                                                    |
+|------------|------------|------------|------------|------------|------------|
+|BIT|FLOAT|CHAR|TIMESTAMP|OTHER|UNDEFINED|
+|TINYINT|REAL|VARCHAR|BINARY|BLOB|NVARCHAR|
+|SMALLINT|DOUBLE|LONGVARCHAR|VARBINARY|CLOB|NCHAR|
+|INTEGER|NUMERIC|DATE|LONGVARBINARY|BOOLEAN|NCLOB|
+|BIGINT|DECIMAL|TIME|NULL|CURSOR|ARRAY|
+
 * consturctor
 * association
 * collection
@@ -352,12 +376,102 @@ public class User
 >
 ```
 ## 动态SQL ##
-* sql
-* if
-* choose, when, otherwise
-* where
-* set
-* trim
-* foreach
-* bind
+* sql - 这个元素可以被用来定义可重用的 SQL 代码段，可以包含在其他语句中。
+```xml
+<sql id="userColumns"> ${alias}.id,${alias}.username,${alias}.password </sql>
+
+<select id="selectUsers" resultType="map">
+	select
+	<include refid="userColumns"><property name="alias" value="t1"/></include>,
+	<include refid="userColumns"><property name="alias" value="t2"/></include>
+	from some_table t1
+	cross join some_table t2
+</select>
+```
+* if - 动态 SQL 通常要做的事情是有条件地包含 where 子句的一部分。
+```xml
+<select id="findActiveBlogWithTitleLike" resultType="Blog">
+	SELECT * FROM BLOG 
+	WHERE state = ‘ACTIVE’ 
+	<if test="title != null title != ''">
+	AND title like #{title}
+	</if>
+</select>
+```
+* choose, when, otherwise - 有些时候，我们不想用到所有的条件语句，而只想从中择其一二。
+```xml
+<select id="findActiveBlogLike" resultType="Blog">
+	SELECT * FROM BLOG WHERE state = ‘ACTIVE’
+	<choose>
+		<when test="title != null title != ''">
+			AND title like #{title}
+		</when>
+		<when test="author != null and author.name != null">
+			AND author_name like #{author.name}
+		</when>
+		<otherwise>
+			AND featured = 1
+		</otherwise>
+	</choose>
+</select>
+```
+* where - where 元素知道只有在一个以上的if条件有值的情况下才去插入“WHERE”子句。而且，若最后的内容是“AND”或“OR”开头的，where 元素也知道如何将他们去除。
+```xml
+<select id="findActiveBlogLike" resultType="Blog">
+	SELECT * FROM BLOG 
+	<where> 
+		<if test="state != null">
+			state = #{state}
+		</if> 
+		<if test="title != null">
+			AND title like #{title}
+		</if>
+		<if test="author != null and author.name != null">
+			AND author_name like #{author.name}
+		</if>
+	</where>
+</select>
+```
+* set - set 元素会动态前置 SET 关键字，同时也会消除无关的逗号。
+```xml
+<update id="updateAuthorIfNecessary">
+	update Author
+	<set>
+		<if test="username != null and username != ''">username=#{username},</if>
+		<if test="password != null and password != ''">password=#{password},</if>
+		<if test="email != null and email != ''">email=#{email},</if>
+		<if test="bio != null and bio != ''">bio=#{bio}</if>
+	</set>
+	where id=#{id}
+</update>
+```
+* trim -  trim 元素来定制我们想要的功能。prefixOverrides 属性会忽略通过管道分隔的文本序列。它带来的结果就是所有在 prefixOverrides 属性中指定的内容将被移除，并且插入 prefix 属性中指定的内容。
+```xml
+<trim prefix="WHERE" prefixOverrides="AND |OR ">
+	<!--equivalent to WHERE tag-->
+	... 
+</trim>
+<trim prefix="SET" suffixOverrides=",">
+	<!--equivalent to SET tag -->
+	...
+</trim>
+* foreach - 对一个集合进行遍历。
+```xml
+<select id="selectPostIn" resultType="domain.blog.Post">
+	SELECT *
+	FROM POST P
+	WHERE ID in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+</select>
+```
+* bind - bind 元素可以从 OGNL 表达式中创建一个变量并将其绑定到上下文。
+```xml
+<select id="selectBlogsLike" resultType="Blog">
+	<bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />
+	SELECT * FROM BLOG
+	WHERE title LIKE #{pattern}
+</select>
+```
 
