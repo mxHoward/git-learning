@@ -190,14 +190,14 @@ __正常运行即配置成功。
 
 * 一般添加查询方法的步骤（已有相应Mapper.java和Mapping.xml文件）：
 	1. 在Mapper.java（此例中是Person.java）添加相应接口，如selectXXX();
-	2. 在Mapping.xml（此例中是Person-mapping.xml）添加查询标签（<select></select>等)，标签id为selectXXX(), 写入SQL语句，对应接口方法；
+	2. 在Mapping.xml（此例中是Person-mapping.xml）添加查询标签（`<select></select>`等)，标签id为selectXXX(), 写入SQL语句，对应接口方法；
 	3. 在测试类中测试。
 
 * 一般添加查询方法的步骤（无相应Mapper.java和Mapping.xml文件）：
 	1. 添加javaBean实体类，如foo，来对应数据库表格（已有可忽略）；
 	2. 添加fooMapper.java，写入fooMapper接口，添加查询接口（如selectFoo();）；
-	3. 添加foo-Mapping.xml，<mapper>标签中namespace属性为fooMapper的路径（com.mybatis.model.fooMapper），添加查询标签（<select id="selectFoo">，写入SQL语句；
-	4. 在configuration.xml中添加配置信息：<typeAlias alias="foo" type="com.mybatis.model.foo">增加类型别名；<mapper resource="com/mybatis/model/foo-mapping.xml" />添加映射器；
+	3. 添加foo-Mapping.xml，<mapper>标签中namespace属性为fooMapper的路径（com.mybatis.model.fooMapper），添加查询标签（`<select id="selectFoo"`>，写入SQL语句；
+	4. 在configuration.xml中添加配置信息：`<typeAlias alias="foo" type="com.mybatis.model.foo">`增加类型别名；`<mapper resource="com/mybatis/model/foo-mapping.xml" />`添加映射器；
 	5. 添加测试类测试。
 
 ---
