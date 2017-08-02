@@ -186,7 +186,7 @@ public class Test
     }
 }
 ```
-    正常运行即配置成功。
+正常运行即配置成功。
 * 一般添加查询方法的步骤（已有相应Mapper.java和Mapping.xml文件）：
 	1. 在Mapper.java（此例中是Person.java）添加相应接口，如selectXXX();
 	2. 在Mapping.xml（此例中是Person-mapping.xml）添加查询标签（<select></select>等)，标签id为selectXXX(), 写入SQL语句，对应接口方法；
