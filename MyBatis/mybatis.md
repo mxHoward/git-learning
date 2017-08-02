@@ -42,10 +42,10 @@ configuration `//父标签`
 |--- objectFactory `//对象工厂`  
 |--- plugins `//插件`  
 |--- environments `//环境，可以设置多个环境`  
-|--- |--- environment `//单个环境的配置`  
-|            |--- transactionManager `//事物管理器，一般为JDBC`  
-|            |__ dataSource `//数据源`  
-|                   |__ property `//数据源属性：数据库驱动、数据库url、数据库用户名密码等`  
+|--- |__ environment `//单个环境的配置`  
+|　　　　|--- transactionManager `//事物管理器，一般为JDBC`  
+|　　　　|__ dataSource `//数据源`  
+|　　　　　　|__ property `//数据源属性：数据库驱动、数据库url、数据库用户名密码等`  
 |__ mappers `//映射器`
 
 * 在src/mybatis下创建com.mybatis.model包，创建数据库表格对应实体类，如Person：
@@ -197,8 +197,11 @@ public class Test
 	3. 添加foo-Mapping.xml，<mapper>标签中namespace属性为fooMapper的路径（com.mybatis.model.fooMapper）,
 	    添加查询标签（<select id="selectFoo">，写入SQL语句；
 	4. 在configuration.xml中添加配置信息：<typeAlias alias="foo" type="com.mybatis.model.foo">增加类型别名；
-	     <mapper resource="com/mybatis/model/foo-mapping.xml" />添加映射器。
+	     <mapper resource="com/mybatis/model/foo-mapping.xml" />添加映射器；
+	5. 添加测试类测试。
+---
 # ResultMap #
+
 
 # CRUD #
 
