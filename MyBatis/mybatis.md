@@ -98,7 +98,7 @@
 	}
 	```
 
-*	 在com.mybatis.model包下创建Person-mapping.xml文件：
+*	在com.mybatis.model包下创建Person-mapping.xml文件：
 	```xml
 	<?xml version="1.0" encoding="UTF-8"?>
 	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
@@ -111,7 +111,7 @@
 	</mapper>
 	```
 
-*	 在src/mybatis下创建com.mybatis.mapper包，创建PersonMapper.java文件，写Person映射的数据库接口：
+*	在src/mybatis下创建com.mybatis.mapper包，创建PersonMapper.java文件，写Person映射的数据库接口：
 	```java
 	package com.mybatis.mapper;
 
