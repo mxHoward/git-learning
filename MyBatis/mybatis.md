@@ -5,6 +5,7 @@
 * 将下载好的mybatis-x.x.x.jar和mysql-connector-java-x.x.x-bin.jar放入WebRoot下的WEB-INF中的lib文件夹下；
 * 创建两个源文件夹，如src/mybatis和src/test；
 * 在src/mybatis下创建configuration.xml文件，配置MyBatis：
+```xml
 	<?xml version="1.0" encoding="UTF-8"?>
 	<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -27,7 +28,7 @@
 			<mapper resource="com/mybatis/model/Person-mapping.xml"/>
 		</mappers>
 	</configuration>
-
+```
 # ResultMap #
 
 # CRUD #
