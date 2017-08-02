@@ -97,6 +97,7 @@
 		}
 	}
 	```
+
 *	 在com.mybatis.model包下创建Person-mapping.xml文件：
 	```xml
 	<?xml version="1.0" encoding="UTF-8"?>
@@ -189,16 +190,16 @@
 	__正常运行即配置成功。__
 
 *	一般添加查询方法的步骤（已有相应Mapper.java和Mapping.xml文件）：
-	1. 在Mapper.java（此例中是Person.java）添加相应接口，如selectXXX();
-	2. 在Mapping.xml（此例中是Person-mapping.xml）添加查询标签（`<select></select>`等)，标签id为selectXXX(), 写入SQL语句，对应接口方法；
-	3. 在测试类中测试。
+	1.	在Mapper.java（此例中是Person.java）添加相应接口，如selectXXX();
+	2.	在Mapping.xml（此例中是Person-mapping.xml）添加查询标签（`<select></select>`等)，标签id为selectXXX(), 写入SQL语句，对应接口方法；
+	3.	在测试类中测试。
 
-*	 一般添加查询方法的步骤（无相应Mapper.java和Mapping.xml文件）：
-	1. 添加javaBean实体类，如foo，来对应数据库表格（已有可忽略）；
-	2. 添加fooMapper.java，写入fooMapper接口，添加查询接口（如selectFoo();）；
-	3. 添加foo-Mapping.xml，<mapper>标签中namespace属性为fooMapper的路径（com.mybatis.model.fooMapper），添加查询标签（`<select id="selectFoo"`>，写入SQL语句；
-	4. 在configuration.xml中添加配置信息：`<typeAlias alias="foo" type="com.mybatis.model.foo">`增加类型别名；`<mapper resource="com/mybatis/model/foo-mapping.xml" />`添加映射器；
-	5. 添加测试类测试。
+*	一般添加查询方法的步骤（无相应Mapper.java和Mapping.xml文件）：
+	1.	添加javaBean实体类，如foo，来对应数据库表格（已有可忽略）；
+	2.	添加fooMapper.java，写入fooMapper接口，添加查询接口（如selectFoo();）；
+	3.	添加foo-Mapping.xml，<mapper>标签中namespace属性为fooMapper的路径（com.mybatis.model.fooMapper），添加查询标签（`<select id="selectFoo"`>，写入SQL语句；
+	4.	在configuration.xml中添加配置信息：`<typeAlias alias="foo" type="com.mybatis.model.foo">`增加类型别名；`<mapper resource="com/mybatis/model/foo-mapping.xml" />`添加映射器；
+	5.	添加测试类测试。
 
 ---
 
@@ -308,7 +309,7 @@ public class User
 
 * 	association - 关联元素处理“有一个”类型的关系。
 	关联中不同的是你需要告诉 MyBatis 如何加载关联。（两种方式）
-	1.	嵌套查询:通过执行另外一个 SQL 映射语句来返回预期的复杂类型。（性能通常很糟糕）
+	1.	嵌套查询:通过执行另外一个 SQL 映射语句来返回预期的复杂类型。（性能通常很糟糕）  
 		example:
 		```xml
 		<resultMap id="blogResult" type="Blog">
@@ -323,7 +324,7 @@ public class User
 			SELECT * FROM AUTHOR WHERE ID = #{id}
 		</select>
 		```
-	2.	嵌套结果:使用嵌套结果映射来处理重复的联合结果的子集。（性能相对较好）
+	2.	嵌套结果:使用嵌套结果映射来处理重复的联合结果的子集。（性能相对较好）  
 		example:
 		```xml
 		<resultMap id="blogResult" type="Blog">
@@ -354,7 +355,7 @@ public class User
 		</select>
 		```
 
-*	collection - 集合元素的作用几乎和关联是相同的，表示“有很多个”的关系。
+*	collection - 集合元素的作用几乎和关联是相同的，表示“有很多个”的关系。  
 	example:
 	```xml
 	<collection property="posts" ofType="domain.blog.Post">
@@ -364,7 +365,7 @@ public class User
 	</collection>
 	```
 	集合也有两种类型：
-	1.	集合的嵌套查询。
+	1.	集合的嵌套查询。  
 		example:
 		```xml
 		<resultMap id="blogResult" type="Blog">
@@ -379,7 +380,7 @@ public class User
 			SELECT * FROM POST WHERE BLOG_ID = #{id}
 		</select>
 		```
-	2.	集合的嵌套结果。
+	2.	集合的嵌套结果。  
 		example:
 		```xml
 		<resultMap id="blogResult" type="Blog">
@@ -405,7 +406,7 @@ public class User
 			where B.id = #{id}
 		</select>
 		```
-*	discriminator - 处理一个单独的数据库查询返回很多不同 (但是希望有些关联) 数据类型的结果集的情况。
+*	discriminator - 处理一个单独的数据库查询返回很多不同 (但是希望有些关联) 数据类型的结果集的情况。  
 	example:
 	```xml
 	<resultMap id="vehicleResult" type="Vehicle">
