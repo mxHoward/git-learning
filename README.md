@@ -3,3 +3,4 @@
 ## Content ##
 * Git
 * Mybatis
+* Design Patterns
