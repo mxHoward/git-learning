@@ -1,6 +1,6 @@
 # Design Patterns #
 ---
-## Creational Patterns（创建型模式） ##
+## Creational Patterns（创建型模式） ##  
 创建型模式(Creational Pattern)对类的实例化过程进行了抽象，能够将软件模块中对象的创建和对象的使用分离。为了使软件的结构更加清晰，外界对于这些对象只需要知道它们共同的接口，而不清楚其具体的实现细节，使整个系统的设计更加符合单一职责原则。创建型模式隐藏了类的实例的创建细节，通过隐藏对象如何被创建和组合在一起达到使整个系统独立的目的。
 ---
 ### Simple Factory Pattern（简单工厂模式） ###
@@ -11,7 +11,7 @@
 	*	Factory: 工厂角色 - 负责实现创建所有实例的内部逻辑。
 	*	Product: 抽象产品角色 - 是所创建的所有对象的父类，负责描述所有实例所共有的公共接口。
 	*	ConcreteProdcut: 具体产品角色 - 是创建目标，所有创建的对象都充当这个角色的某个具体类的实例。
-3.	Sequence Diagram
+3.	Sequence Diagram  
 	![Simple Factory SD](https://github.com/mxHoward/learning/blob/img/img/design_patterns/seq_SimpleFactory.jpg)
 4.	Code
 	```c++
@@ -42,13 +42,13 @@
 ### Factory Method Pattern（工厂方法模式） ###
 1.	Definition  
 	工厂方法模式(Factory Method Pattern)又称为工厂模式，也叫虚拟构造器(Virtual Constructor)模式或者多态工厂(Polymorphic Factory)模式，它属于类创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。
-2.	Struct
+2.	Struct  
 	![Factory Method](https://github.com/mxHoward/learning/blob/img/img/design_patterns/FactoryMethod.jpg)
 	*	Product：抽象产品
 	*	ConcreteProduct：具体产品
 	*	Factory：抽象工厂
 	*	ConcreteFactory：具体工厂
-3.	Sequence Diagram
+3.	Sequence Diagram  
 	![Factory Method SD](https://github.com/mxHoward/learning/blob/img/img/design_patterns/seq_FactoryMethod.jpg)
 4.	Code
 	```c++
@@ -94,13 +94,13 @@
 ### Abstract Factory Pattern（抽象工厂模式） ###
 1.	Definition  
 	抽象工厂模式(Abstract Factory Pattern): 提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为Kit模式，属于对象创建型模式。
-2.	Struct
+2.	Struct  
 	![Abstract Factory](https://github.com/mxHoward/learning/blob/img/img/design_patterns/AbstractFactory.jpg)
 	*	AbstractFactory：抽象工厂
 	*	ConcreteFactory：具体工厂
 	*	AbstractProduct：抽象产品
 	*	Product：具体产品
-3.	Sequence Diagram
+3.	Sequence Diagram  
 	![Abstract Factory SD](https://github.com/mxHoward/learning/blob/img/img/design_patterns/seq_AbstractFactory.jpg)
 4.	Code
 	```c++
