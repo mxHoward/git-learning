@@ -5,7 +5,8 @@
 ### Programmatic Configuration ###
   
 基于代码的Shiro配置，简单易用。  
-缺点也显而易见：和java类紧耦合、改变配置就要重新编译程序等等。
+缺点也显而易见：和java类紧耦合、改变配置就要重新编译程序等等。  
+
 　　example:  
 ```java
 //创建一个 SecurityManager 并使之可用最简单的方法就是创建一个org.apache.shiro.mgt.DefaultSecurityManager
@@ -41,7 +42,7 @@ SecurityManager securityManager = factory.getInstance();
 SecurityUtils.setSecurityManager(securityManager);
 ```
 　　shiro.ini：
-```basic
+```
 # =======================
 # Shiro INI configuration
 # =======================
@@ -58,16 +59,40 @@ SecurityUtils.setSecurityManager(securityManager);
 
 [roles]
 # The 'roles' section is for simple deployments
-# when you only need a small number of statically-defined
-# roles.
+# when you only need a small number of statically-defined roles.
 
 [urls]
 # The 'urls' section is used for url-based security
-# in web applications.  We'll discuss this section in the
-# Web documentation
 ```
+  
+INI Sections
+*	[main]
+	[main]区域是配置程序 SecurityManager 实例及其支撑组件的地方，如 Realm。  
+	使用键-值对的形式。  
+	eg：
+	```
+	[main]
+	sha256Matcher = org.apache.shiro.authc.credential.Sha256CredentialsMatcher
 
+	# defining an object myRealm
+	myRealm = com.company.security.shiro.DatabaseRealm
+	
+	# primitive values
+	myRealm.connectionTimeout = 30000
+	myRealm.username = jsmith
+	myRealm.password = secret
 
+	# reference values
+	myRealm.credentialsMatcher = $sha256Matcher
+
+	# nested properties
+	securityManager.sessionManager.globalSessionTimeout = 1800000
+	```
+  
+*	[users]
+	[users]区域允许你定义一组静态的用户帐号，这对于那些只有少数用户帐号并且用户帐号不需要在运行时动态创建的环境来说非常有用。
+	eg：
+	
 ## SecurityManager ##
 ---
 ### Authentication ###
