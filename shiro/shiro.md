@@ -170,17 +170,18 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 
 	//没问题，继续
 	```
-*	AuthenticationStrategy  
+*	Authentication Strategy  
 	当一个程序中定义了两个或多个 realm 时，ModularRealmAuthenticator 使用一个内部的AuthenticationStrategy 组件来决定一个验证是否成功。  
-	AuthenticationStrategy 是一个 stateless 的组件，在整个验证过程中在被用到4次（在这4次活动中需要必要的 state 时，state 将作为方法参数传递）  
+	AuthenticationStrategy 是一个 stateless 的组件，在整个验证过程中在被用到4次：
 	-	在任何 Realms 被执行之前；
 	-	在某个的 Realm 的 getAuthenticationInfo 方法调用之前；
 	-	在某个的 Realm 的 getAuthenticationInfo 方法调用之后；
 	-	在所有的 Realm 被执行之后。  
+
 	Shiro有3个具体的AuthenticationStrategy实现：
 	-	AtLeastOneSuccessfulStrategy
 	-	FirstSuccessfulStrategy
-	-	AllSuccessfulStrategy
+	-	AllSuccessfulStrategy  
 	默认使用 AtLeastOneSuccessfulStrategy 实现，这也是最常用的策略，然而你也可以配置你希望的不同的策略。
 	```
 	shiro.ini
@@ -214,7 +215,7 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 *	程序代码--你可以在你的 JAVA 代码中执行用类似于 if 和 else 的结构来执行权限检查。  
 	直接在程序中为当前 Subject 实例检查授权可能是最简单也最常用的方法。
 	-	Role-Based Authorizaiton
-		-	Role Checks 角色检查 - hasRole(String roleName), hasRoles(List<String> roleNames)  
+		-	Role Checks __角色检查__ - hasRole(String roleName), hasRoles(List<String> roleNames)  
 			eg:
 			```java
 			Subject currentUser = SecurityUtils.getSubject();
@@ -224,7 +225,7 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 			    //不显示按钮?  灰色吗？
 			}
 			```
-		-	Role Assertions 角色判断 - checkRole(String roleName), checkRoles(List<String> roleNames)
+		-	Role Assertions __角色判断__ - checkRole(String roleName), checkRoles(List<String> roleNames)  
 			eg:
 			```java
 			Subject currentUser = SecurityUtils.getSubject();
@@ -235,8 +236,8 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 			```  
 
 	-	Permission-Based Authorization
-		-	Permission Checks 权限检查
-			1.Object-based Permission Checks 基于对象的权限检查  
+		-	Permission Checks __权限检查__  
+			1.Object-based Permission Checks __基于对象的权限检查__  
 			isPermitted(Permission perm), isPermitted(List<Permission> perms), isPermittedAll(Collection<Permission> perms)  
 			eg:
 			```java
@@ -249,7 +250,7 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 			}
 			```
 
-			2.String-based permission checks 基于字符串的权限检查  
+			2.String-based permission checks __基于字符串的权限检查__  
 			isPermitted(String perm), isPermitted(List<String> perms), isPermittedAll(Collection<String> perms)  
 			eg:
 			```java
@@ -261,8 +262,8 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 			    //不显示按钮?  灰色吗？
 			}
 			```
-		-	Permission Assertions 权限判断
-			1.Object-based Permission Assertions 基于对象的权限判断  
+		-	Permission Assertions __权限判断__  
+			1.Object-based Permission Assertions __基于对象的权限判断__  
 			checkPermission(Permission perm), checkPermissions(List<Permission> perms)  
 			eg:
 			```java
@@ -274,7 +275,7 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 			openBankAccount();
 			```
 
-			2.String-based permission Assertions 基于字符串的权限判断 
+			2.String-based permission Assertions __基于字符串的权限判断__  
 			checkPermission(String perm), checkPermissions(List<String> perms)  
 			eg:
 			```java
