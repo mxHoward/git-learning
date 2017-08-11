@@ -219,14 +219,14 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 		-	All Valuse __所有值__  
 			`printer:*  `
 			`*:view`
-	-	Instance-Level Access Control __实例级的访问控制__
+	-	Instance-Level Access Control __实例级的访问控制__  
 		`printer:query:lp7200` - 定义查询拥有ID lp7200 的打印机的行为  
 		`printer:print:epsoncolor` - 定义打印到拥有 ID epsoncolor 的打印机的行为  
 		`printer:print:*` - 定义所有打印机的打印行为  
 		`printer:*:*` - 所有打印机的所有操作行为  
 		`printer:*:lp7200` - 一台打印机的所有操作行为  
   
-*	Checking Permissions __检查权限__
+*	Checking Permissions __检查权限__  
 	在执行权限检查时，尽可能使用权限字符串。应用程序将决定检查哪些有意义，但一般情况下，越具体越好。  
 	运行时权限检查应该尽可能的具体，但权限分配可以较为普通。  
   
@@ -460,9 +460,9 @@ Subject 验证的过程可以有效地划分分以下三个步骤：
 	5.	如果证据不符，抛出 AuthenticationException异常。
   
 *	Credentials Matching __凭证匹配__  
-	-	Simple Equality Check __简单证明匹配__
+	-	Simple Equality Check __简单证明匹配__  
 		所有Shiro的开箱即用Realm默认使用一个SimpleCredentialsMatcher，SimpleCredentialsMatcher对存储的用户凭证和从AuthenticationToken提交的用户凭证直接执行相等检查。例如，如果提交了一个UsernamePasswordToken，SimpleCredentialsMatcher检查提交的密码与存储的密码是否完全相等。
-	-	Hashing Credentials __哈希凭证__
+	-	Hashing Credentials __哈希凭证__  
 		取代将凭证按它们原始形式存储并执行原始数据的对比，存储终端用户的凭证（如密码）更安全的办法是在存储数据之前，先进行hash运算。这确保终端用户的凭证不会以他们原始的形式存储，没有人能知道其原始值。与明文原始比较相比这是一种更为安全的做法，有安全意识的程序会更喜欢这种方法。要支持这种加密的hash策略，Shiro为Realm配置提供了一个HashedCredentialsMatcher实现替代之前的SimpleCredentialsMatcher。  
 		eg:
 		```java
@@ -517,7 +517,9 @@ session.setAttribute( "someKey", someValue);
 
 #### The Sessions Manager ####
   
-　　SessionManager在应用程序中为所有的 subject 管理Session —— 创建，删除，inactivity(失效)及验证，等等。像其他被SecurityManager管理的组件一样，SessionManager可以通过 JavaBean 风格的getter/setter方法在所有Shiro默认SecurityManager实现（getSessionManager()/setSessionManager()）上获取或设置值。或者例如，如果在使用 shiro.ini 配置：
+　　SessionManager在应用程序中为所有的 subject 管理Session —— 创建，删除，inactivity(失效)及验证，等等。像其他被SecurityManager管理的组件一样，SessionManager可以通过 JavaBean 风格的getter/setter方法在所有Shiro默认
+SecurityManager实现（getSessionManager()/setSessionManager()）上获取或设置值。  
+或者例如，如果在使用 shiro.ini 配置：
 ```
 [main]
 ...
@@ -543,7 +545,7 @@ securityManager.sessionManager = $sessionManager
 
 	securityManager.sessionManager.sessionListeners = $aSessionListener, $anotherSessionListener, etc.
 	```  
-*	Session Storage __存储__
+*	Session Storage __存储__  
 	每当一个会话被创建或更新时，它的数据需要持久化到一个存储位置以便它能够被稍后的应用程序访问。同样地，当一个会话失效且不再被使用时，它需要从存储中删除以便会话数据存储空间不会被耗尽。SessionManager实现委托这些Create/Read/Update/Delete(CRUD)操作为内部组件，同时，SessionDAO，反映了数据访问对象（DAO）设计模式。SessionDAO的权力是你能够实现该接口来与你想要的任何数据存储进行通信。  
 	在shiro.ini中配置：
 	```
@@ -552,7 +554,7 @@ securityManager.sessionManager = $sessionManager
 	sessionDAO = com.foo.my.SessionDAO
 	securityManager.sessionManager.sessionDAO = $sessionDAO
 	```
-*	EHCache SessionDAO
+*	EHCache SessionDAO  
 	EHCache 默认是没有启用的，但如果不打算实现自己的SessionDAO，那么强烈地建议为Shiro的SessionManagerment启用EHCache支持。EHCache SessionDAO将会在内存中保存会话，并支持溢出到磁盘。  
 *	Session Validation & Scheduling  
 	Sessions 必须被验证，这样任何无效(过期或停止)的会话能够从会话数据存储中删除。这保证了数据存储不会由于不能再次使用的会话而导致写入超时。由于性能上的原因，仅仅在Sessions被访问（也就是subject.getSession()）时验证它们是否停止或过期。这意味着， 如果没有额外的定期验证，Session orphans(孤儿)将会开始填充会话数据存储。因此，为了防止堆放孤儿，SessionManager实现支持SessionValidationScheduler的概念。SessionValidationScheduler负责定期地验证会话以确保它们是否需要清理。  
@@ -588,7 +590,7 @@ securityManager.sessionManager = $sessionManager
 	securityManager.sessionManager.sessionDAO = $sessionDAO
 	```  
 *	Ehcache + Terracotta  
-	这样一个分布式缓存解决方案,人们取得了成功在使用 Shiro 的Ehcache + Terracotta 配对。 
+	另一个分布式缓存解决方案。 
   
 #### Sessions and Subject State ####
   
